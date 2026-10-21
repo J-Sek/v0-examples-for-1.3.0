@@ -1,10 +1,15 @@
 <script setup lang="ts">
-  import { createValidation, Tour, useTour } from '@vuetify/v0'
-  import { onBeforeUnmount, ref, shallowRef } from 'vue'
+  import { createValidation, Tour, usePrefersReducedMotion, useTour } from '@vuetify/v0'
+  import { computed, onBeforeUnmount, ref, shallowRef } from 'vue'
 
   const tour = useTour()
   const name = shallowRef('')
   const log = ref<string[]>([])
+
+  // v0's default (block: 'end', inline scroll-margin-bottom: 100px) scrolls on every step and clips the card
+  // placed below; the !important on scroll-mb-48 is needed to beat that inline style.
+  const reducedMotion = usePrefersReducedMotion().matches
+  const scrollOptions = computed((): ScrollIntoViewOptions => ({ block: 'nearest', behavior: reducedMotion.value ? 'instant' : 'smooth' }))
 
   const steps = [
     { id: 'intro', title: 'Intro', text: 'This button is the activator for step 1.' },
@@ -37,11 +42,11 @@
 
 <template>
   <div class="flex flex-wrap gap-3 items-center">
-    <Tour.Activator class="inline-block" step="intro">
+    <Tour.Activator class="inline-block scroll-mb-48!" :scroll-options step="intro">
       <button class="px-3 py-1 rounded border border-subtle" data-testid="tour-start" type="button" @click="start">Start tour</button>
     </Tour.Activator>
 
-    <Tour.Activator class="inline-block" step="name">
+    <Tour.Activator class="inline-block scroll-mb-48!" :scroll-options step="name">
       <input v-model="name" class="px-2 py-1 rounded border border-subtle bg-surface-tint" data-testid="tour-name" placeholder="Your name">
     </Tour.Activator>
   </div>
