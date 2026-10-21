@@ -24,6 +24,10 @@ button:not(:disabled),
   }
 }
 
+@theme {
+  --font-sans: 'Sora', ui-sans-serif, system-ui, sans-serif;
+}
+
 @theme inline {
   --color-primary: var(--v0-primary);
   --color-secondary: var(--v0-secondary);

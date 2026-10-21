@@ -9,9 +9,9 @@ export default defineConfig({
     fontsource: {
       families: [
         {
-          name: 'Roboto',
-          weights: [100, 300, 400, 500, 700, 900],
-          styles: ['normal', 'italic'],
+          name: 'Sora',
+          weights: [400, 500, 700],
+          styles: ['normal'],
         },
       ],
     },
