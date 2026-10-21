@@ -3,9 +3,9 @@
   import { ref } from 'vue'
 
   const components = [
-    { id: 'selection', label: 'Selection' },
-    { id: 'dialog', label: 'Dialog' },
-    { id: 'popover', label: 'Popover' },
+    { id: 'selection', label: 'Selection', icon: 'icon-[mdi--checkbox-multiple-marked-outline]' },
+    { id: 'dialog', label: 'Dialog', icon: 'icon-[mdi--window-maximize]' },
+    { id: 'popover', label: 'Popover', icon: 'icon-[mdi--message-outline]' },
   ]
 
   const selected = ref<string[]>(['selection'])
@@ -47,7 +47,7 @@
           rel="noopener noreferrer"
           target="_blank"
         >
-          {{ link.label }}<span class="sr-only"> (opens in new tab)</span>
+          {{ link.label }}<span aria-hidden="true" class="icon-[mdi--open-in-new] size-3 ml-0.5 align-[-1px]" /><span class="sr-only"> (opens in new tab)</span>
         </a>
         <span v-if="index < links.length - 1" class="text-on-surface opacity-30">•</span>
       </template>
@@ -69,7 +69,7 @@
           >
             <button
               :aria-selected="isSelected"
-              class="flex-1 px-4 py-3 rounded-lg border font-medium transition-colors"
+              class="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border font-medium transition-colors"
               :class="isSelected
                 ? 'bg-primary text-on-primary border-primary'
                 : 'bg-surface-tint hover:bg-surface-variant border-subtle'"
@@ -79,6 +79,7 @@
               @keydown.enter.prevent="toggle"
               @keydown.space.prevent="toggle"
             >
+              <span aria-hidden="true" class="size-5" :class="item.icon" />
               {{ item.label }}
             </button>
           </Selection.Item>
