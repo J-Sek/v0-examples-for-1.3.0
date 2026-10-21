@@ -6,8 +6,10 @@
   const loose = shallowRef<string>()
   const strict = shallowRef<string>()
 
-  const control = 'px-2 py-1 rounded border border-subtle bg-surface-tint'
-  const content = 'm-0 rounded border border-subtle bg-surface p-1 text-on-surface'
+  const field = 'flex px-2 py-1 rounded border border-subtle bg-surface-tint'
+  const control = 'flex-1 min-w-0 bg-transparent outline-none'
+  const content = 'm-0 mt-1 rounded border border-subtle bg-surface p-1 text-on-surface'
+  const sameWidth = { minWidth: 'anchor-size(width)' }
   const option = 'px-2 py-0.5 rounded data-[highlighted]:bg-primary data-[highlighted]:text-on-primary'
 </script>
 
@@ -17,11 +19,11 @@
       <div class="mb-1 opacity-60">default (non-strict)</div>
 
       <Combobox.Root v-model="loose">
-        <Combobox.Activator>
+        <Combobox.Activator :class="field">
           <Combobox.Control :class="control" data-testid="combo-loose" placeholder="Type anything" />
         </Combobox.Activator>
 
-        <Combobox.Content :class="content">
+        <Combobox.Content :class="content" :style="sameWidth">
           <Combobox.Item
             v-for="fruit in fruits"
             :id="fruit"
@@ -39,11 +41,11 @@
       <div class="mb-1 opacity-60">strict</div>
 
       <Combobox.Root v-model="strict" strict>
-        <Combobox.Activator>
+        <Combobox.Activator :class="field">
           <Combobox.Control :class="control" data-testid="combo-strict" placeholder="Type anything" />
         </Combobox.Activator>
 
-        <Combobox.Content :class="content">
+        <Combobox.Content :class="content" :style="sameWidth">
           <Combobox.Item
             v-for="fruit in fruits"
             :id="fruit"
